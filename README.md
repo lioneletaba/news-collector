@@ -11,6 +11,13 @@ A Python-based news automation system that collects, filters, and presents news 
 - PDF report generation
 - Comprehensive error handling and logging
 
+## Video Demo
+
+[![Download and watch the demo video](https://img.shields.io/badge/Download%20Demo%20Video-blue?logo=github)](docs/Video%20Apr%2024%202025.mp4)
+
+You can [download and watch the demo video](docs/Video%20Apr%2024%202025.mp4) directly from this repository.
+
+
 ## Architecture
 
 The system follows clean architecture principles with the following components:
