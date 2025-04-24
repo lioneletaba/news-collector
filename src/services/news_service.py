@@ -68,14 +68,19 @@ class NewsService:
                         article_dict = article.model_dump()
                         article_dict["url"] = str(article_dict["url"])
                         db_article = Article.model_validate(article_dict)
-                        session.add(db_article)
-                        session.commit()
-                        session.refresh(db_article)
-                        saved_articles.append(db_article)
+                        # Check if article with same URL already exists
+                        existing_article = session.exec(select(Article).where(Article.url == db_article.url)).first()
+                        if existing_article is None:
+                            session.add(db_article)
+                            session.commit()
+                            session.refresh(db_article)
+                            saved_articles.append(db_article)
+                        else:
+                            saved_articles.append(existing_article)
+                            logger.info(f"Article with URL {db_article.url} already exists. Skipping insert.")
                     except Exception as e:
                         logger.warning(f"Failed to save article: {e}")
                         session.rollback()
-            
             return saved_articles
             
         except Exception as e:
